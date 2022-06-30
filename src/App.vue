@@ -1,15 +1,42 @@
 <script setup>
 // This starter template is using Vue 3 <script setup> SFCs
 // Check out https://vuejs.org/api/sfc-script-setup.html#script-setup
-import FilterInput from './components/FilterInput.vue';
-import HelloWorld from './components/HelloWorld.vue'
+import { ref } from 'vue';
+import { useRouter } from 'vue-router';
+import firebase from 'firebase/compat/app';
+import 'firebase/compat/auth';
+
+const router = useRouter();
+const isLoggedIn = ref(true);
+
+firebase.auth().onAuthStateChanged(function(user) {
+  if (user) {
+    isLoggedIn.value = true;
+  } else {
+    isLoggedIn.value = false;
+  }
+});
+
+const signOut = () => {
+  firebase.auth().signOut();
+  router.push('/');
+};
 </script>
 
 <template>
-  <div>
-    <img alt="Vue logo" src="./assets/logo.png" />
-    <HelloWorld msg="Hello Vue 3 + Vite" />
-    <FilterInput />
+  <div class="mainWrapper">
+    <nav>
+      <router-link to="/"> Home </router-link> |
+      <router-link to="/feed"> Feed </router-link> |
+      <span v-if="isLoggedIn">
+        <button @click="signOut">Logout</button>
+      </span>
+      <span v-else>
+        <router-link to="/register"> Register </router-link> |
+        <router-link to="/log-in"> Login </router-link>
+      </span>
+    </nav>
+    <router-view />
   </div>
 </template>
 

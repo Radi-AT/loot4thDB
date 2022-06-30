@@ -1,6 +1,6 @@
 <template>
   <div class="filter-wrapper">
-    <input class="filter-input" type="input" :placeholder="placeholder" v-model="filterText"> 
+    <input class="filter-input" type="input" :placeholder="placeholder" v-model="filterText">
     <img class="filter-clear" src="../assets/icons/x-close.svg" v-show="filterValue" v-on:click="clearSearch()">
   </div>
 </template>
@@ -18,7 +18,7 @@ export default {
     return {
       filterText: '',
       // searchIcon: require('../assets/icons/searchIcon.svg'),
-    }
+    };
   },
   computed:{
     filterValue: function() {
@@ -31,7 +31,7 @@ export default {
       this.filterText = '';
     }
   }
-}
+};
 </script>
 
 <style lang="scss">
@@ -68,7 +68,7 @@ export default {
       border: 1px solid rgb(139, 19, 19);
     }
   }
-  
+
   .filter-clear {
     opacity: 0.3;
     position: absolute;
