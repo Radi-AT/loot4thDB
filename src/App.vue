@@ -27,8 +27,8 @@ const signOut = () => {
   <div class="mainWrapper">
     <nav>
       <router-link to="/"> Home </router-link> |
-      <router-link to="/feed"> Feed </router-link> |
       <span v-if="isLoggedIn">
+        <router-link to="/feed"> Feed </router-link> |
         <button @click="signOut">Logout</button>
       </span>
       <span v-else>
