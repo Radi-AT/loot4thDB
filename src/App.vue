@@ -3,13 +3,12 @@
 // Check out https://vuejs.org/api/sfc-script-setup.html#script-setup
 import { ref } from 'vue';
 import { useRouter } from 'vue-router';
-import firebase from 'firebase/compat/app';
-import 'firebase/compat/auth';
+import { auth } from './main';
 
 const router = useRouter();
 const isLoggedIn = ref(true);
 
-firebase.auth().onAuthStateChanged(function(user) {
+auth.onAuthStateChanged(function(user) {
   if (user) {
     isLoggedIn.value = true;
   } else {
@@ -18,7 +17,7 @@ firebase.auth().onAuthStateChanged(function(user) {
 });
 
 const signOut = () => {
-  firebase.auth().signOut();
+  auth.signOut();
   router.push('/');
 };
 </script>

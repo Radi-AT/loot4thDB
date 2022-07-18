@@ -1,8 +1,7 @@
 <script setup>
 import { ref } from 'vue';
 import { useRouter } from 'vue-router';
-import firebase from "firebase/compat/app";
-import 'firebase/compat/auth';
+import { auth } from '../main';
 
 const email = ref('');
 const password = ref('');
@@ -10,8 +9,7 @@ const errMsg = ref('');
 const router = useRouter();
 
 const login = () => {
-  firebase
-    .auth() // get the auth api
+  auth// get the auth api
     .signInWithEmailAndPassword(email.value, password.value) // need .value because ref()
     .then((data) => {
       console.log('Successfully log in! ', data);
@@ -38,7 +36,7 @@ const login = () => {
 
 <template>
   <section>
-    <h1>Create an Account</h1>
+    <h1>Login</h1>
     <p><input type="text" placeholder="Email" v-model="email" /></p>
     <p><input type="password" placeholder="Password" v-model="password" /></p>
     <p><button @click="login">Submit</button></p>
