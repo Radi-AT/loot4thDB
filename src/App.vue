@@ -39,7 +39,7 @@ const signOut = () => {
           </div>
         </div>
         <div class="d-flex">
-          <button class=" btn btn-danger btn-sm" @click="signOut" v-if="!isLoggedIn">Logout</button>
+          <button class=" btn btn-danger btn-sm" @click="signOut" v-if="isLoggedIn">Logout</button>
         </div>
       </div>
     </nav>
