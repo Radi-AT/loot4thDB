@@ -1,7 +1,7 @@
-<script>
+<script setup>
 import { db, auth } from '../main';
 import { useRouter } from 'vue-router';
-import { onBeforeUnmount, onMounted, ref } from 'vue';
+import { onBeforeUnmount } from 'vue';
 
 const router = useRouter();
 const authListener = auth.onAuthStateChanged(function(user) {
@@ -16,21 +16,20 @@ onBeforeUnmount(() => {
   authListener();
 });
 
-let data = ref('');
+// onMounted(() => {
+//   data = db.collection('/anillos');
 
-onMounted(() => {
-  data = db.collection('/anillos');
+//   console.log(data);
+// });
 
-  console.log(data);
-});
+async function getCities(db) {
+  const citiesCol = await db.collection('anillos');
+  return citiesCol;
+}
 
+console.log(getCities(db));
+const data = getCities(db);
 
-// async function getCities(db) {
-//   const citiesCol = collection(db, 'cities');
-//   const citySnapshot = await getDocs(citiesCol);
-//   const cityList = citySnapshot.docs.map(doc => doc.data());
-//   return cityList;
-// }
 </script>
 
 <template>

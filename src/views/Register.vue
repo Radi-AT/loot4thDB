@@ -8,7 +8,7 @@ const password = ref('');
 const router = useRouter();
 
 const register = () => {
-  auth // get the auth api
+  auth
     .createUserWithEmailAndPassword(email.value, password.value) // need .value because ref()
     .then((data) => {
       console.log('Successfully registered! ', data);
@@ -23,11 +23,13 @@ const register = () => {
 
 <template>
   <section>
-    <h1>Create an Account</h1>
-    <p><input type="text" placeholder="Email" v-model="email" /></p>
-    <p><input type="password" placeholder="Password" v-model="password" /></p>
-    <p>Minimo 6 caracteres</p>
-    <p><button @click="register">Submit</button></p>
+    <form @submit.prevent="register">
+      <h1>Create an Account</h1>
+      <p><input type="text" placeholder="Email" v-model="email" /></p>
+      <p><input type="password" placeholder="Password" v-model="password" /></p>
+      <p>Minimo 6 caracteres</p>
+      <p><button @click="register" type="submit">Submit</button></p>
+    </form>
   </section>
 </template>
 

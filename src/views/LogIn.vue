@@ -36,11 +36,13 @@ const login = () => {
 
 <template>
   <section>
-    <h1>Login</h1>
-    <p><input type="text" placeholder="Email" v-model="email" /></p>
-    <p><input type="password" placeholder="Password" v-model="password" /></p>
-    <p><button @click="login">Submit</button></p>
-    <p v-if="errMsg">{{ errMsg }}</p>
+    <form @submit.prevent="login">
+      <h1>Login</h1>
+      <p><input type="text" placeholder="Email" v-model="email" /></p>
+      <p><input type="password" placeholder="Password" v-model="password" /></p>
+      <p><button @click="login" type="submit">Submit</button></p>
+      <p v-if="errMsg">{{ errMsg }}</p>
+    </form>
   </section>
 </template>
 
