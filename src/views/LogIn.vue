@@ -47,7 +47,7 @@ const loginWithGoogle = () => {
 
 <template>
   <section>
-    <h1>Create an Account</h1>
+    <h1>Login</h1>
     <form @submit.prevent="login">
       <div class="form-group">
         <label for="inputEmail1">Email address</label>
