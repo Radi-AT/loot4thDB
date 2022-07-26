@@ -3,10 +3,12 @@
 // Check out https://vuejs.org/api/sfc-script-setup.html#script-setup
 import { ref } from 'vue';
 import { useRouter } from 'vue-router';
-import { auth } from './main';
+import { getAuth } from 'firebase/auth';
+
 
 const router = useRouter();
 const isLoggedIn = ref(true);
+const auth = getAuth();
 
 auth.onAuthStateChanged(function(user) {
   if (user) {
@@ -39,7 +41,7 @@ const signOut = () => {
           </div>
         </div>
         <div class="d-flex">
-          <button class=" btn btn-danger btn-sm" @click="signOut" v-if="isLoggedIn">Logout</button>
+          <button class="btn btn-danger btn-sm" @click="signOut" v-if="isLoggedIn">Logout</button>
         </div>
       </div>
     </nav>

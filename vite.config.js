@@ -7,5 +7,8 @@ export default defineConfig({
   plugins: [
     vue(),
     eslint(),
-  ]
+  ],
+  build: {
+    sourcemap: false,
+  },
 });

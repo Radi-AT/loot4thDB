@@ -1,10 +1,8 @@
 import { createApp } from 'vue';
 import App from './App.vue';
 import router from "./router";
-import firebase from "firebase/compat/app";
-import 'firebase/compat/firestore';
-import 'firebase/compat/auth';
-
+import { initializeApp } from "firebase/app";
+import { getFirestore } from "firebase/firestore/lite";
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
 
@@ -19,11 +17,10 @@ const firebaseConfig = {
 };
 
 // Initialize Firebase
-firebase.initializeApp(firebaseConfig);
+const firebaseInstance = initializeApp(firebaseConfig);
 
 // Exports
-export const db = firebase.firestore();
-export const auth = firebase.auth();
+export const db = getFirestore(firebaseInstance);
 
 const app = createApp(App);
 app.use(router);

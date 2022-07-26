@@ -1,19 +1,19 @@
 <script setup>
 import { ref } from 'vue';
 import { useRouter } from 'vue-router';
-import { auth } from '../main';
+import { getAuth, signInWithEmailAndPassword, GoogleAuthProvider, signInWithPopup } from 'firebase/auth';
 
 const email = ref('');
 const password = ref('');
 const errMsg = ref('');
 const router = useRouter();
+const auth = getAuth();
 
 const login = () => {
-  auth// get the auth api
-    .signInWithEmailAndPassword(email.value, password.value) // need .value because ref()
+  signInWithEmailAndPassword(auth, email.value, password.value) // Need .value because ref()
     .then((data) => {
       console.log('Successfully log in! ', data);
-      router.push('/feed'); // redirect to the feed
+      router.push('/feed'); // Redirect to the feed
     })
     .catch(error => {
       switch (error.code) {
@@ -32,20 +32,50 @@ const login = () => {
       }
     });
 };
+
+const loginWithGoogle = () => {
+  const provider = new GoogleAuthProvider();
+  signInWithPopup(auth, provider)
+    .then((result) => {
+      console.log('Successfully log in! ', result.user);
+      router.push('/feed'); // Redirect to the feed
+    }).catch((error) => {
+      alert(error.message);
+    });
+};
 </script>
 
 <template>
   <section>
+    <h1>Create an Account</h1>
     <form @submit.prevent="login">
-      <h1>Login</h1>
-      <p><input type="text" placeholder="Email" v-model="email" /></p>
-      <p><input type="password" placeholder="Password" v-model="password" /></p>
-      <p><button @click="login" type="submit">Submit</button></p>
+      <div class="form-group">
+        <label for="inputEmail1">Email address</label>
+        <input v-model="email" type="email" class="form-control" id="inputEmail1" aria-describedby="emailHelp" placeholder="Enter email">
+      </div>
+      <div class="form-group">
+        <label for="inputPassword1">Password</label>
+        <input v-model="password" type="password" class="form-control" id="inputPassword1" placeholder="Password">
+      </div>
       <p v-if="errMsg">{{ errMsg }}</p>
+      <button type="submit" class="btn btn-success">Log in</button>
     </form>
+    <button @click="loginWithGoogle" class="btn btn-success">Log in con Google</button>
   </section>
 </template>
 
-<style>
+<style lang="scss" scoped>
+form {
+  max-width: 300px;
+  margin: 20px auto;
+
+  & .btn {
+    margin-top: 20px;
+  }
+
+  & .form-group{
+    margin-top: 20px;
+  }
+}
 
 </style>
