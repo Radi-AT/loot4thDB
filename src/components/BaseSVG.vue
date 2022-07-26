@@ -29,14 +29,13 @@ export default {
     },
   },
   methods: {
-    getSVG() {
-      import(`../assets/svg/${this.name}.svg`).then((mod) => {
-        console.log(`../assets/svg/${this.name}.svg?raw`);
-        this.svgImport = mod.default;
-      });
-    },
     classes() {
       return `svgWrapper ${this.cssClass}`;
+    },
+    getSVG() {
+      const svgList = import.meta.glob('../assets/svg/*.svg', { as: 'raw' });
+      const match = svgList[`../assets/svg/${this.name}.svg`];
+      this.svgImport = match;
     },
   },
   beforeMount() {
