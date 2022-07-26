@@ -35,7 +35,7 @@ const signOut = () => {
         <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
           <div class="navbar-nav">
             <router-link to="/" class="nav-link"> Home </router-link>
-            <router-link to="/feed" class="nav-link"> Feed </router-link>
+            <router-link to="/DbViewer" class="nav-link"> Base de datos </router-link>
             <router-link to="/register" class="nav-link"  v-if="!isLoggedIn"> Register </router-link>
             <router-link to="/log-in" class="nav-link" v-if="!isLoggedIn"> Login </router-link>
           </div>

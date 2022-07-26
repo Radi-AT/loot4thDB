@@ -12,7 +12,7 @@ const register = () => {
   createUserWithEmailAndPassword(auth, email.value, password.value) // Need .value because ref()
     .then((data) => {
       console.log('Successfully registered! ', data);
-      router.push('/feed'); // Redirect to the feed
+      router.push('/DbViewer'); // Redirect to the DbViewer
     })
     .catch(error => {
       alert(error.message);
@@ -24,7 +24,7 @@ const registerWithGoogle = () => {
   signInWithPopup(auth, provider)
     .then((data) => {
       console.log('Successfully registered! ', data);
-      router.push('/feed'); // Redirect to the feed
+      router.push('/DbViewer'); // Redirect to the DbViewer
     })
     .catch(error => {
       alert(error.message);

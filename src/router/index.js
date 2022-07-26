@@ -16,8 +16,8 @@ const router = createRouter({
       component: () => import("../views/LogIn.vue"),
     },
     {
-      path: "/feed",
-      component: () => import("../views/Feed.vue"),
+      path: "/dbViewer",
+      component: () => import("../views/DbViewer.vue"),
     },
   ],
 });

@@ -13,7 +13,7 @@ const login = () => {
   signInWithEmailAndPassword(auth, email.value, password.value) // Need .value because ref()
     .then((data) => {
       console.log('Successfully log in! ', data);
-      router.push('/feed'); // Redirect to the feed
+      router.push('/DbViewer'); // Redirect to the DbViewer
     })
     .catch(error => {
       switch (error.code) {
@@ -38,7 +38,7 @@ const loginWithGoogle = () => {
   signInWithPopup(auth, provider)
     .then((result) => {
       console.log('Successfully log in! ', result.user);
-      router.push('/feed'); // Redirect to the feed
+      router.push('/DbViewer'); // Redirect to the DbViewer
     }).catch((error) => {
       alert(error.message);
     });
