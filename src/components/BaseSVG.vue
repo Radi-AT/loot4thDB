@@ -30,7 +30,8 @@ export default {
   },
   methods: {
     getSVG() {
-      import(`../assets/svg/${this.name}.svg?raw`).then((mod) => {
+      import(`../assets/svg/${this.name}.svg`).then((mod) => {
+        console.log(`../assets/svg/${this.name}.svg?raw`);
         this.svgImport = mod.default;
       });
     },
