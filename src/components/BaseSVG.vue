@@ -1,69 +1,49 @@
-<script>
-export default {
-  name: 'BaseSVG',
-  data() {
-    return {
-      svgImport: '',
-    };
+<script setup>
+import { ref, onBeforeMount } from 'vue';
+
+const props = defineProps({
+  name: {
+    type: String,
+    required: true,
   },
-  props: {
-    name: {
-      type: String,
-      required: true,
-    },
-    cssClass: {
-      type: String,
-      default: '',
-    },
-    color: {
-      type: String,
-      default: '',
-    },
-    height: {
-      type: String,
-      default: '150px'
-    },
-    width: {
-      type: String,
-      default: '150px'
-    },
+  cssClass: {
+    type: String,
+    default: '',
   },
-  methods: {
-    classes() {
-      return `svgWrapper ${this.cssClass}`;
-    },
-    getSVG() {
-      const svgList = import.meta.glob('../assets/svg/*.svg', { as: 'raw' });
-      const match = svgList[`../assets/svg/${this.name}.svg`];
-      this.svgImport = match;
-    },
+  color: {
+    type: String,
+    default: '',
   },
-  beforeMount() {
-    this.getSVG();
+  height: {
+    type: String,
+    default: '150px'
   },
-  // mounted() {
-  //   if (this.$el.firstElementChild.nodeName === 'svg') {
-  //     const svgElement = this.$el.firstElementChild;
-  //     // use `viewBox` attribute to get the svg's inherent width and height
-  //     const viewBox = svgElement.getAttribute('viewBox').split(' ').map(n => Number(n));
-  //     const widthToHeight = (viewBox[2] / viewBox[3]).toFixed(2);
-  //     // set width and height relative to font size
-  //     // if growByHeight is true, height set to 1em else width set to 1em and remaining is calculated based on widthToHeight ratio
-  //     if (this.growByHeight) {
-  //       svgElement.setAttribute('height', '1em');
-  //       svgElement.setAttribute('width', `${widthToHeight}em`);
-  //     } else {
-  //       svgElement.setAttribute('width', '1em');
-  //       svgElement.setAttribute('height', `${1 / widthToHeight}em`);
-  //     }
-  //     svgElement.classList.add('svg-class');
-  //   }
-  // }
-};
+  width: {
+    type: String,
+    default: '150px'
+  },
+});
+
+const svgImport = ref({});
+const svgWrapper = ref([]);
+
+function classes() {
+  return `svgWrapper ${props.cssClass}`;
+}
+
+function getSVG() {
+  const svgList = import.meta.glob('../assets/svg/*.svg', { as: 'raw' });
+  const match = svgList[`../assets/svg/${props.name}.svg`];
+  svgImport.value = match;
+}
+
+onBeforeMount(() => {
+  getSVG();
+});
 </script>
 
 <template>
-  <div v-html="svgImport" :class=classes() ></div>
+  <div v-html="svgImport" :class=classes() ref="svgWrapper"></div>
 </template>
 
 <style lang="scss" scoped>

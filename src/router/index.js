@@ -19,6 +19,10 @@ const router = createRouter({
       path: "/dbViewer",
       component: () => import("../views/DbViewer.vue"),
     },
+    {
+      path: "/inportForm",
+      component: () => import("../views/InportForm.vue"),
+    },
   ],
 });
 

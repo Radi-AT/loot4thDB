@@ -4,6 +4,7 @@
 import { ref } from 'vue';
 import { useRouter } from 'vue-router';
 import { getAuth } from 'firebase/auth';
+import BaseSVG from './components/BaseSVG.vue';
 
 
 const router = useRouter();
@@ -25,10 +26,12 @@ const signOut = () => {
 </script>
 
 <template>
-  <div class="mainWrapper">
+  <div class="appWrapper">
     <nav class="navbar navbar-expand-lg bg-light">
       <div class="container-fluid">
-        <a class="navbar-brand" href="#">Loot4thDB</a>
+        <router-link to="/" class="navbar-brand">Loot4thDB
+          <BaseSVG name="d20" cssClass="navLogo" color="red" height="20px" width="20px"/>
+        </router-link>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
@@ -36,6 +39,7 @@ const signOut = () => {
           <div class="navbar-nav">
             <router-link to="/" class="nav-link"> Home </router-link>
             <router-link to="/DbViewer" class="nav-link"> Base de datos </router-link>
+            <router-link to="/inportForm" class="nav-link"> Importar datos </router-link>
             <router-link to="/register" class="nav-link"  v-if="!isLoggedIn"> Register </router-link>
             <router-link to="/log-in" class="nav-link" v-if="!isLoggedIn"> Login </router-link>
           </div>
@@ -54,12 +58,12 @@ const signOut = () => {
 
 body {
   background-color: $dark;
-  height: 100vh;
 }
 
-.mainWrapper {
+.appWrapper {
   text-align: center;
   color: $secondary;
+  min-height: 100vh;
 }
 
 #app {
