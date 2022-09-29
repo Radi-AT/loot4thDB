@@ -61,7 +61,6 @@ body {
 }
 
 .appWrapper {
-  text-align: center;
   color: $secondary;
   min-height: 100vh;
 }
@@ -74,6 +73,10 @@ body {
   max-width: 60%;
   height: 100%;
   margin: 0 auto;
+}
+
+h1 {
+  text-align: center;
 }
 
 </style>

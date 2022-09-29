@@ -25,7 +25,6 @@ const props = defineProps({
 });
 
 const svgImport = ref({});
-const svgWrapper = ref([]);
 
 function classes() {
   return `svgWrapper ${props.cssClass}`;
@@ -43,7 +42,7 @@ onBeforeMount(() => {
 </script>
 
 <template>
-  <div v-html="svgImport" :class=classes() ref="svgWrapper"></div>
+  <div v-html="svgImport" :class=classes()></div>
 </template>
 
 <style lang="scss" scoped>

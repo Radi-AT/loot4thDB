@@ -12,7 +12,8 @@ import BaseSVG from '../components/BaseSVG.vue';
 <style lang="scss">
 @import '../scss/theme-colors.scss';
 
-.dungeonLogo {
-    margin: 20px;
+.svgWrapper.dungeonLogo {
+    margin: 20px auto;
+    display: block;
 }
 </style>
