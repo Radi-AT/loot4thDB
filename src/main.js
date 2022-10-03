@@ -7,6 +7,7 @@ import { getFirestore } from "firebase/firestore/lite";
 // https://firebase.google.com/docs/web/setup#available-libraries
 
 // Your web app's Firebase configuration
+// WARNING do not mix 'firebase/firestore' and 'firebase/firestore/lite' in the whole project!
 const firebaseConfig = {
   apiKey: "AIzaSyDQQHZjb8TJPkM5vl6umsdFG9QcWeS2l2k",
   authDomain: "loot4thdb.firebaseapp.com",
