@@ -23,6 +23,10 @@ const router = createRouter({
       path: "/inportForm",
       component: () => import("../views/InportForm.vue"),
     },
+    {
+      path: "/itemsParser",
+      component: () => import("../views/ItemsParser.vue"),
+    },
   ],
 });
 

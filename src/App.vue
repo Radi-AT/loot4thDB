@@ -40,6 +40,7 @@ const signOut = () => {
             <router-link to="/" class="nav-link"> Home </router-link>
             <router-link to="/DbViewer" class="nav-link"> Base de datos </router-link>
             <router-link to="/inportForm" class="nav-link"> Importar datos </router-link>
+            <router-link to="/itemsParser" class="nav-link"> Items Parser </router-link>
             <router-link to="/register" class="nav-link"  v-if="!isLoggedIn"> Register </router-link>
             <router-link to="/log-in" class="nav-link" v-if="!isLoggedIn"> Login </router-link>
           </div>

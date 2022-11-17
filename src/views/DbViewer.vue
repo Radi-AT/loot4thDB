@@ -4,6 +4,7 @@ import { collection, getDocs } from 'firebase/firestore/lite';
 import { db } from '../main';
 import { useRouter } from 'vue-router';
 import { onBeforeUnmount, onMounted, ref } from 'vue';
+import items from '../assets/testItems';
 
 const router = useRouter();
 const auth = getAuth();
@@ -58,13 +59,30 @@ async function getRings(db) {
           <p>PROPIEDAD: {{ item.property }}</p>
           <p>SLOT: {{ item.slot }}</p>
         </div>
+         <h1>Base de items</h1>
+        <div v-for="item in items" :key="item.ID" class="item">
+          <p>ID: {{ item.ID }}</p>
+          <p>NOMBRE: {{ item.Name }}</p>
+          <p>Cost: {{ item.Cost }}</p>
+          <p>Level: {{ item.Level }}</p>
+          <p>Category: {{ item.Category }}</p>
+          <p>Enhancement: {{ item.Enhancement }}</p>
+          <p>IsMundane: {{ item.IsMundane }}</p>
+          <p>FinalCost: {{ item.FinalCost }}</p>
+          <p>Source: {{ item.Source }}</p>
+          <p>Teaser: {{ item.Teaser }}</p>
+          <div v-html="item.Txt"></div>
+          <p>Rarity: {{ item.Rarity }}</p>
+          <p>CostSort: {{ item.CostSort }}</p>
+          <p>LevelSort: {{ item.LevelSort }}</p>
+        </div>
     </section>
 </template>
 
 <style lang="scss" scoped>
 .item {
   border: 5px solid peru;
-  max-width: 500px;
+  max-width: 650px;
   margin: 0 auto 20px auto;
   padding: 20px;
 }
