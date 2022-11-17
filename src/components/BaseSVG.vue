@@ -1,5 +1,5 @@
 <script setup>
-import { ref, onBeforeMount } from 'vue';
+import { onBeforeMount, ref } from 'vue';
 
 const props = defineProps({
   name: {
@@ -24,25 +24,25 @@ const props = defineProps({
   },
 });
 
-const svgImport = ref({});
-
 function classes() {
   return `svgWrapper ${props.cssClass}`;
 }
+let svgIcon = ref('');
 
-function getSVG() {
-  const svgList = import.meta.glob('../assets/svg/*.svg', { as: 'raw' });
-  const match = svgList[`../assets/svg/${props.name}.svg`];
-  svgImport.value = match;
-}
+const getSvgIcon = () => {
+  import(`../assets/svg/${props.name}.svg?raw`).then((mod) => {
+    svgIcon.value = mod.default;
+  });
+};
 
 onBeforeMount(() => {
-  getSVG();
+  getSvgIcon();
 });
+
 </script>
 
 <template>
-  <div v-html="svgImport" :class=classes()></div>
+  <div v-html="svgIcon" :class=classes()></div>
 </template>
 
 <style lang="scss" scoped>
