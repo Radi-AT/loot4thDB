@@ -1,7 +1,6 @@
 <script setup>
 import { getAuth } from 'firebase/auth';
-import { collection, getDocs } from 'firebase/firestore/lite';
-import { db } from '../main';
+import { getCollection } from '../services/firestoreService';
 import { useRouter } from 'vue-router';
 import { onBeforeUnmount, onMounted, ref } from 'vue';
 import items from '../assets/testItems';
@@ -21,16 +20,15 @@ onBeforeUnmount(() => {
   authListener();
 });
 
-onMounted(() => {
-  getRings(db);
+onMounted(async () => {
+  getRings();
 });
 
-async function getRings(db) {
-  const querySnapshot = await getDocs(collection(db, 'anillos'));
-  let ringList = [];
-  querySnapshot.forEach(doc => {
-    console.log(doc.id, doc.data());
-    ringList.push({
+async function getRings() {
+  const query = await getCollection('anillos');
+  let formattedRings = [];
+  query.forEach(doc => {
+    formattedRings.push({
       id: doc.id,
       name: doc.data().nombre,
       lvl: doc.data().nivel,
@@ -42,22 +40,45 @@ async function getRings(db) {
     });
   });
 
-  dataBase.value = ringList;
+  dataBase.value = formattedRings;
+}
+
+async function getTest() {
+  const query = await getCollection('test');
+  let formattedRings = [];
+  query.forEach(doc => {
+    formattedRings.push({
+      id: doc.id,
+      name: doc.data().nombre,
+      lvl: doc.data().nivel,
+      lore: doc.data().lore,
+      skill: doc.data().poder,
+      price: doc.data().precio,
+      property: doc.data().propiedad,
+      slot: doc.data().slot,
+    });
+  });
+
+  dataBase.value = formattedRings;
 }
 </script>
 
 <template>
     <section>
         <h1>Base de datos</h1>
+        <div class="selector">
+          <button @click="getRings()" type="submit" class="btn btn-warning m-1">Anillos</button>
+          <button @click="getTest()" type="submit" class="btn btn-warning m-1">Test</button>
+        </div>
         <div v-for="item in dataBase" :key="item.id" class="item">
-          <p>ID: {{ item.id }}</p>
-          <p>NOMBRE: {{ item.name }}</p>
-          <p>NIVEL: {{ item.lvl }}</p>
-          <p>LORE: {{ item.lore }}</p>
-          <p>PODER: {{ item.skill }}</p>
-          <p>PRECIO: {{ item.price }}</p>
-          <p>PROPIEDAD: {{ item.property }}</p>
-          <p>SLOT: {{ item.slot }}</p>
+          <p v-if="item.id">ID: {{ item.id }}</p>
+          <p v-if="item.name">NOMBRE: {{ item.name }}</p>
+          <p v-if="item.lvl">NIVEL: {{ item.lvl }}</p>
+          <p v-if="item.lore">LORE: {{ item.lore }}</p>
+          <p v-if="item.skill">PODER: {{ item.skill }}</p>
+          <p v-if="item.price">PRECIO: {{ item.price }}</p>
+          <p v-if="item.property">PROPIEDAD: {{ item.property }}</p>
+          <p v-if="item.slot">SLOT: {{ item.slot }}</p>
         </div>
          <h1>Base de items</h1>
         <div v-for="item in items" :key="item.ID" class="item">
@@ -84,6 +105,10 @@ async function getRings(db) {
   border: 5px solid peru;
   max-width: 650px;
   margin: 0 auto 20px auto;
+  padding: 20px;
+}
+.selector {
+  text-align: center;
   padding: 20px;
 }
 </style>

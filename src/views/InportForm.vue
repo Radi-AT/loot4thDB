@@ -1,5 +1,7 @@
 <script setup>
 import { ref, onMounted } from 'vue';
+import { doc, setDoc, collection, addDoc } from 'firebase/firestore/lite';
+import { db } from '../services/firestoreService';
 import BaseInput from '../components/form/BaseInput.vue';
 import BaseSelect from '../components/form/BaseSelect.vue';
 import BaseCheckbox from '../components/form/BaseCheckbox.vue';
@@ -13,12 +15,31 @@ onMounted(() => {
   event.value.tipo = tipos[0];
 });
 
+async function setData() {
+  // Add a new document in collection "test"
+  await setDoc(doc(db, "test", "LA hola"), {
+    name: "Los Angeles",
+    state: "CA",
+    country: "EEUU"
+  });
+}
+
+async function addData() {
+  // Add a new document with a generated id.
+  await addDoc(collection(db, "test"), {
+    name: "Tokyo",
+    country: "Japan"
+  });
+}
+
+// let x = await (async function() {return "hello";})();
+
 </script>
 
 <template>
 <div class="importForm">
   <h1>IMPORTAR DATOS</h1>
-  <form>
+  <form @submit.prevent>
     <BaseInput
       v-model="event.testInput"
       label="Input Base 2"
@@ -37,7 +58,7 @@ onMounted(() => {
     <BaseRadio
       v-model="event.sabor"
       :value="0"
-      label="Vailinilla"
+      label="Vainilla"
       name="sabores"/>
     <BaseRadio
       v-model="event.sabor"
@@ -49,7 +70,10 @@ onMounted(() => {
       :value="2"
       label="Pistacho"
       name="sabores"/>
-    <button class="btn btn-primary btn-lg" type="submit">Importar</button>
+    <button class="btn btn-primary btn-lg" type="submit" @click="setData">Set Data</button>
+    <button class="btn btn-primary btn-lg" type="submit" @click="addData">Add Data</button>
+    <button class="btn btn-primary btn-lg" type="submit" @click="setData">Delete Data</button>
+    <button class="btn btn-primary btn-lg" type="submit" @click="setData">Algo mas</button>
   </form>
 
 </div>
